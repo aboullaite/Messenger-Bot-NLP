@@ -45,7 +45,6 @@ public class BotController {
 
     @RequestMapping(value = "webhook", method = RequestMethod.POST)
     public void HandleWebhook (@RequestBody final MessageReceived messages , HttpServletRequest request) throws IOException{
-        //System.out.println(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
         Optional<List<MessageReceived.Messaging>> messagingList = messages.entry.stream().map(e -> e.messaging).filter(message -> message.stream().anyMatch(m -> m.message != null && m.message.text !=null)).findFirst();
         if(messagingList.isPresent())
         messagingList.get().forEach(m -> {
